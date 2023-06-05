@@ -6,13 +6,14 @@ import {contentType} from "../requests/HeadersClass.js";
 //Нагрузочноая стартегия на примере smoke
 export let options = smokeStrategy(5, '30s')
 
+let apiMethodsClass = new ApiMethodsClass()
 export default function simulation() {
 	const payload = JSON.stringify({
 		email: 'aaa',
 		password: 'bbb',
 	});
 	
-	ApiMethodsClass.prototype.requestSend({
+	apiMethodsClass.requestSend({
 		method: 'POST',
 		url: 'http://test.k6.io',
 		path: '/login',
@@ -20,5 +21,8 @@ export default function simulation() {
 	}, {
 		contentKey: 'Content-Type',
 		contentValue: contentType[0],
+	}, {
+		'Accept': 'TXT',
+		'TEST': 'TEST'
 	})
 }
